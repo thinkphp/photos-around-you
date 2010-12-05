@@ -1,52 +1,74 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 <head>
-   <title>Photos Around You</title>
-   <link rel="stylesheet" href="http://yui.yahooapis.com/2.7.0/build/reset-fonts-grids/reset-fonts-grids.css" type="text/css">
-   <link rel="stylesheet" href="http://yui.yahooapis.com/2.7.0/build/base/base.css" type="text/css">   
-   <style type="text/css">
-   html,body{font-family:georgia,serif;}
-   ul li{list-style: none;float: left}
-   h1{font-size: 25px}
-   #ft {margin-top: 30px;color: #999}
-   #ft p{font-size:85%;text-align: left;}
-   #ft p a {color: #69c}
-   </style>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+<title>Photos Around You</title>
+<style type="text/css">
+html,body{font-family: georgia,arial,verdana,sans-serif;width: 700px;margin-left: 10%}
+div#more a {
+	font-weight: bold;
+	text-align: center;
+  	margin: 5px 0;
+	display: block;
+	background: #4791d9;
+	text-decoration: none;
+	color: #fff;
+	padding: 4px;
+	outline: 0;
+	border: 0;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	-o-border-radius: 4px;
+	-ms-border-radius: 4px;
+	-khtml-border-radius: 4px;
+	border-radius: 4px;
+	-moz-transition-duration: 0.25s;
+	-webkit-transition-duration: 0.25s;
+	-o-transition-duration: 0.25s;
+	transition-duration: 0.25s;
+	-webkit-transition-property: -webkit-transform;
+	-moz-transition-property: -moz-transform;
+	-o-transition-property: -o-transform;
+	transition-property: transform;
+	-webkit-transform: scale(1) rotate(0);
+	-moz-transform: scale(1) rotate(0);
+	-o-transform: scale(1) rotate(0);
+	transform: scale(1) rotate(0);
+}
+
+div#more a:hover {
+	background: #4791d9;
+	text-decoration: none;
+	color: #fff;
+	-webkit-transform: scale(1.05) rotate(-1deg);
+	-moz-transform: scale(1.05) rotate(-1deg);
+	-o-transform: scale(1.05) rotate(-1deg);
+	transform: scale(1.05) rotate(-1deg);
+}
+
+div#more a:nth-child(2n):hover {
+	-webkit-transform: scale(1.05) rotate(1deg);
+	-moz-transform: scale(1.05) rotate(1deg);
+	-o-transform: scale(1.05) rotate(1deg);
+	transform: scale(1.05) rotate(1deg);
+}
+h1{font-size: 420%}
+#ft p a{color: #000}
+</style>
+<script type="text/javascript">
+</script>
 </head>
 <body>
-<div id="doc" class="yui-t7">
-   <div id="hd" role="banner"><h1>Determining your location...</h1></div>
-   <div id="bd" role="main">
-	<div class="yui-g">
-           <ul id="results-photos">Loading...</ul>
+<h1>Photos Around You</h1>
+<div class="container">
+	<div id="more">
+		<a href="index_1.html">using YQLGeo Library</a>
+		<a href="index_2.html">using jsonip.appspot</a>
+		<a href="index_2.php">using $_SERVER['REMOTE_ADDR']</a>
+		<a href="geoip.php">Geoip</a>
 	</div>
-	</div>
-   <div id="ft" role="contentinfo"><p>created by @<a href="http:/twitter.com/thinkphp">thinkphp</a> using YQL <a href="geo.js">Geo</a> Library</p></div>
-</div>
-<script type="text/javascript" src="geo.js"></script>
-<script type="text/javascript" src="yqlquery.js"></script>
-<script type="text/javascript">
-var ip2 = '87.248.122.122', ip = '69.147.76.210';
-function $(id){return document.getElementById(id);}
-var callback = function(o){
-    if(window.console) {console.log(o.query.results.photo);}
-    var n = o.query.results.photo.length, 
-        out = '', 
-        photos = o.query.results.photo;
-        for(var i=0;i<n;i++) {
-               var curr = photos[i];
-               var src = 'http://farm' + curr.farm + '.static.flickr.com/' + curr.server + '/' + curr.id + '_' + curr.secret + '_s.jpg';
-               out += '<li><a href="http://www.flickr.com/photos/'+curr.owner+'/'+curr.id+'/" title="'+curr.title+'"><img src="'+src+'" alt="'+curr.title+'"></a></li>';
-        }
-    $('results-photos').innerHTML = out;
-};
-var photos = yqlgeo.get('ipvisitor',function(o){
-    yqlgeo.get(o.ip,function(o){
-    $('hd').innerHTML = '<h1>Photos Around '+o.place.locality1.content+', '+o.place.country.content+'</h1>';
-    });
-    var yql = 'select * from flickr.photos.search(45) where woe_id in (select place.woeid from flickr.places where (lat,lon) in (select Latitude,Longitude from ip.location where ip="'+o.ip+'"))';
-    new YQLQuery(yql,callback).fetch();      
-});
-</script>
+</div>	
+<div id="ft" role="contentinfo"><p>@<a href="http://twitter.com/thinkphp">thinkphp</a></p></div>
 </body>
 </html>
+
